@@ -16,6 +16,8 @@ ninja -C build # this may emit several warnings when compiling src_glew.c.o
 
 Install like so
 
+(*_**You don't need to install subprojects**_)
+
 ```
 sudo meson install -C build --skip-subprojects
 ```
