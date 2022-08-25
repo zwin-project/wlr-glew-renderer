@@ -520,7 +520,7 @@ glew_get_render_buffer_caps(struct wlr_renderer *renderer)
   return WLR_BUFFER_CAP_DMABUF;
 }
 
-struct wlr_egl *
+WL_EXPORT struct wlr_egl *
 wlr_glew_renderer_get_egl(struct wlr_renderer *wlr_renderer)
 {
   struct wlr_glew_renderer *renderer = glew_get_renderer(wlr_renderer);
@@ -706,7 +706,7 @@ extern const GLchar tex_fragment_src_rgba[];
 extern const GLchar tex_fragment_src_rgbx[];
 extern const GLchar tex_fragment_src_external[];
 
-struct wlr_renderer *
+WL_EXPORT struct wlr_renderer *
 wlr_glew_renderer_create_with_drm_fd(int drm_fd)
 {
   struct wlr_egl *egl = wlr_egl_create_with_drm_fd(drm_fd);
@@ -725,7 +725,7 @@ wlr_glew_renderer_create_with_drm_fd(int drm_fd)
   return renderer;
 }
 
-struct wlr_renderer *
+WL_EXPORT struct wlr_renderer *
 wlr_glew_renderer_create(struct wlr_egl *egl)
 {
   if (!wlr_egl_make_current(egl)) {
