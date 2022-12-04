@@ -19,7 +19,7 @@
 
 static const struct wlr_texture_impl texture_impl;
 
-static bool
+WL_EXPORT bool
 wlr_texture_is_glew(struct wlr_texture *wlr_texture)
 {
   return wlr_texture->impl == &texture_impl;
@@ -377,4 +377,15 @@ glew_texture_from_buffer(
   } else {
     return NULL;
   }
+}
+
+WL_EXPORT void
+wlr_glew_texture_get_attribs(
+    struct wlr_texture *wlr_texture, struct wlr_glew_texture_attribs *attribs)
+{
+  struct wlr_glew_texture *texture = glew_get_texture(wlr_texture);
+  memset(attribs, 0, sizeof(*attribs));
+  attribs->target = texture->target;
+  attribs->tex = texture->tex;
+  attribs->has_alpha = texture->has_alpha;
 }

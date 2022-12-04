@@ -1,6 +1,6 @@
 project(
   'wlr-glew-renderer', 'c',
-  version: '0.15.0',
+  version: '0.15.1.1',
   license: 'MIT',
   meson_version: '>=0.58.1',
   default_options: [
@@ -9,6 +9,8 @@ project(
     'werror=true',
   ],
 )
+
+so_version = '1.0'
 
 little_endian = host_machine.endian() == 'little'
 big_endian = host_machine.endian() == 'big'
