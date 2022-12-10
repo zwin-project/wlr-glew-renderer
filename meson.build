@@ -85,6 +85,9 @@ wlroots_proj = subproject(
   'wlroots',
   required: true,
   version: '0.15.1',
+  default_options: [
+    'examples=false',
+  ],
 )
 wlroots = wlroots_proj.get_variable('wlroots')
 
