@@ -10,8 +10,6 @@ project(
   ],
 )
 
-so_version = '1.0'
-
 little_endian = host_machine.endian() == 'little'
 big_endian = host_machine.endian() == 'big'
 
@@ -86,7 +84,7 @@ wlroots_proj = subproject(
   required: true,
   version: '0.15.1',
 )
-wlroots = wlroots_proj.get_variable('wlroots')
+wlr_inc = wlroots_proj.get_variable('wlr_inc')
 
 glew_proj = subproject(
   'glew',
@@ -98,18 +96,29 @@ glew_proj = subproject(
     'werror=false',
   ]
 )
-glew = glew_proj.get_variable('glew_dep')
+glew_dep = glew_proj.get_variable('glew_dep')
+
+pixman_dep = dependency('pixman-1')
+drm_dep = dependency('libdrm')
 
 inc = include_directories('include')
 
-subdir('include')
-subdir('src')
+sources = [
+  'src/pixel_format.c',
+  'src/renderer.c',
+  'src/shaders.c',
+  'src/texture.c'
+]
 
-pkgconfig = import('pkgconfig')
-pkgconfig.generate(
-  lib_wlr_glew_renderer,
-  version: meson.project_version(),
-  filebase: meson.project_name(),
-  name: meson.project_name(),
-  description: 'GLEW renderer for wlroots',
+dependencies = [
+  drm_dep,
+  glew_dep,
+  pixman_dep,
+]
+
+lib_wlr_glew_renderer = static_library(
+  meson.project_name(), sources,
+  dependencies: dependencies,
+  include_directories: [inc, wlr_inc],
+  install: false,
 )
