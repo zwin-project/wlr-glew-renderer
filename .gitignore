@@ -2,6 +2,7 @@
 
 subprojects/*
 !subprojects/*.wrap
+!subprojects/packagefiles
 
 .clang_complete
 *.o
